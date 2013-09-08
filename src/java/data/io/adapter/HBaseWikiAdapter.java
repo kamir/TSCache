@@ -7,7 +7,7 @@
 package data.io.adapter;
 
 import data.io.adapter.HBaseAdapter;
-import data.wikipedia.dump.WikiDumpDataMapper;
+import data.wikipedia.dump.WikipediaNode;
 import java.io.*;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.HTable;
@@ -58,7 +58,7 @@ public class HBaseWikiAdapter {
         String rowKey = pageID;
         Put p = new Put(Bytes.toBytes( rowKey ));
 
-        WikiDumpDataMapper page = (WikiDumpDataMapper)data;
+        WikipediaNode page = (WikipediaNode)data;
         
         // now we serialize the object ...
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

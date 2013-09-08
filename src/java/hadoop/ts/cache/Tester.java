@@ -20,7 +20,9 @@ public class Tester {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+        
         HBaseTester.main(args);
+        
         HBaseTSAdapter3 a = HBaseTSAdapter3.init();
         
         String k = "Hi";

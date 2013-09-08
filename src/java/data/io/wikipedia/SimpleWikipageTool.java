@@ -1,19 +1,21 @@
-package tools;
+package data.io.wikipedia;
 
 
 import data.io.adapter.HBaseTSAdapter;
-import data.ts.TSDataMapper;
+import data.io.adapter.HBaseWikiAdapter;
+import data.ts.TSDataWrapper;
+import data.wikipedia.dump.WikipediaNode;
 import java.io.IOException;
 
 /*
- *  Create some Time-Series and store them in HBase.
+ *  Create / Load some Wikipages and store them in HBase.
  */
 
 /**
  *
  * @author kamir
  */
-public class SimpleTSTool {
+public class SimpleWikipageTool {
     
     public static void main( String[] args ) throws IOException, Exception {
         
@@ -24,16 +26,16 @@ public class SimpleTSTool {
         
         System.out.println( defaultIP );
         
-        boolean doCreate = false;
+        boolean doCreate = true;
         boolean doLoad = true;
         int nrOfRows = 25;
         
-        HBaseTSAdapter.init( defaultIP );
+        HBaseWikiAdapter.init( defaultIP );
 
         if ( doCreate ) {
             for( int i = 0; i < nrOfRows ; i++ ) {
-                TSDataMapper mapper = new TSDataMapper( 24*299 );
-                HBaseTSAdapter.putAccessTS( "wikinodes", mapper , ""+i );
+                WikipediaNode node = new WikipediaNode( (i+") Meine Seite").getBytes(), null );
+                HBaseWikiAdapter.putArticle( "wikipages", node , ""+i );
             }
 
             System.out.println( "Done ..." );
@@ -43,8 +45,8 @@ public class SimpleTSTool {
             System.out.println( "Start loading ... ");
             // load all data from DB ...
             for( int i = 0; i < nrOfRows ; i++ ) {
-                Object o = HBaseTSAdapter.getAccessTS( "wikinodes", ""+i );
-                TSDataMapper mapper = (TSDataMapper)o;
+                Object o = HBaseWikiAdapter.getArticle( "wikipages", ""+i );
+                WikipediaNode mapper = (WikipediaNode)o;
                 // System.out.println( mapper.data.length );
             }
         }

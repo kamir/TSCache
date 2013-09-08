@@ -13,10 +13,10 @@ import java.util.Properties;
  *
  * @author kamir
  */
-public class TSDataMapper implements Serializable {
+public class TSDataWrapper implements Serializable {
     
     public double[] data;
-    public TSDataMapper( int nrOfvalues ) {
+    public TSDataWrapper( int nrOfvalues ) {
         data = new double[nrOfvalues];
         for( int i = 0; i < nrOfvalues; i++ ) {
             data[i] = 0.0;
@@ -25,8 +25,8 @@ public class TSDataMapper implements Serializable {
     
     public Properties props = new Properties();
     
-    public static TSDataMapper initRandomSeries( int z ) {
-        TSDataMapper mapper = new TSDataMapper( z );
+    public static TSDataWrapper initRandomSeries( int z ) {
+        TSDataWrapper mapper = new TSDataWrapper( z );
         for( int i = 0; i < z; i++ ) {
             mapper.data[i] = Math.random();
         }

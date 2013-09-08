@@ -17,7 +17,7 @@ import javax.xml.ws.soap.SOAPBinding;
  *
  * @author User
  */
-@WebService(name = "TSCache.v2")
+@WebService(name = "TSCache.v3")
 @MTOM
 public class HBaseCache {
     

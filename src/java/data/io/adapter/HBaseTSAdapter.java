@@ -1,7 +1,8 @@
 /**
  * 
- * High level adapter for storing and retrieving Time Series from HBase.
- * 
+ * High level adapter for storing and retrieving Wikipedia Time Series 
+ * in / from HBase.
+ *
  */
 
 package data.io.adapter;
@@ -19,6 +20,8 @@ import org.apache.hadoop.hbase.util.Bytes;
  * @author kamir
  */
 public class HBaseTSAdapter {
+    
+    private static boolean verbose = false;
     
     private HBaseTSAdapter() {};
    
@@ -38,12 +41,13 @@ public class HBaseTSAdapter {
     
     /** 
      * 
-     * the object can be a Messreihe.
+     * the object can be, e.g. a Messreihe.
      * 
      * @param data
      * @param pageID 
      */
-    public static void putAccessTS( String tablename, Object data, String pageID ) throws IOException, Exception {
+    public static void putAccessTS( String tablename, Object data, String pageID ) 
+            throws IOException, Exception {
     
         // To add to a row, use Put.  A Put constructor takes the name of the row
         // you want to insert into as a byte array.  In HBase, the Bytes class has
@@ -72,7 +76,7 @@ public class HBaseTSAdapter {
         // schema.  The qualifier can be anything.  All must be specified as byte
         // arrays as hbase is all about byte arrays.  Lets pretend the table
         // 'wikinodes' was created with a family 'accessts'.
-        p.add(Bytes.toBytes("accessts"), Bytes.toBytes("raw.random"), dataBytes);
+        p.add(Bytes.toBytes("access.ts"), Bytes.toBytes("raw.random"), dataBytes);
 
         // Once you've adorned your Put instance with all the updates you want to
         // make, to commit it do the following (The HTable#put method takes the
@@ -80,7 +84,8 @@ public class HBaseTSAdapter {
         // hbase)
         HTable table = hba.getTable(tablename);
         table.put(p);
-        System.out.println("> stored data: " + pageID );
+        
+        if ( verbose ) System.out.println("> stored data: " + pageID );
     }
     
 //    /** 
@@ -95,7 +100,7 @@ public class HBaseTSAdapter {
 //    }
     
     public static Object getAccessTS( String tablename, String pageID ) throws IOException, Exception {
-        Object o = null;
+        Object obj = null;
         HTable table = hba.getTable(tablename);
         
         // Now, to retrieve the data we just wrote. The values that come back are
@@ -103,7 +108,7 @@ public class HBaseTSAdapter {
         // the hbase return into the form you find most palatable.
         Get g = new Get(Bytes.toBytes(pageID));
         Result r = table.get(g);
-        byte [] value = r.getValue(Bytes.toBytes("accessts"), Bytes.toBytes("raw.random") );
+        byte [] value = r.getValue(Bytes.toBytes("access.ts"), Bytes.toBytes("raw.random") );
         
         // If we convert the value bytes, we should get back 'Some Value', the
         // value we inserted at this location.
@@ -112,13 +117,13 @@ public class HBaseTSAdapter {
 
         ByteArrayInputStream bis = new ByteArrayInputStream(value);
         ObjectInput in = new ObjectInputStream(bis);
-        o = in.readObject(); 
+        obj = in.readObject(); 
         
         bis.close();
         in.close();
         
-        System.out.println("> loaded data: " + pageID );
-        return o;
+        if (verbose) System.out.println("> loaded data: " + pageID );
+        return obj;
     }
     
 //    public static Object getEditsTS( String pageID ) {

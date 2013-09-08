@@ -27,8 +27,9 @@ public class HBaseTester {
     config.set("hbase.zookeeper.property.clientPort", "22181");  // Here we are running zookeeper locally
     
     
-    String tabName = "wikinodes";
-    // initTable( config , tabName );
+    String tabName = "wikinodes.2";
+    
+    initTable( config , tabName );
     
     // This instantiates an HTable object that connects you to
     // the "myLittleHBaseTable" table.
@@ -50,7 +51,7 @@ public class HBaseTester {
     // schema.  The qualifier can be anything.  All must be specified as byte
     // arrays as hbase is all about byte arrays.  Lets pretend the table
     // 'myLittleHBaseTable' was created with a family 'myLittleFamily'.
-    p.add(Bytes.toBytes("access_ts"), Bytes.toBytes("someQualifier"),
+    p.add(Bytes.toBytes("access.ts"), Bytes.toBytes("someQualifier"),
       Bytes.toBytes("Some cool value ..."));
 
     // Once you've adorned your Put instance with all the updates you want to
@@ -64,7 +65,7 @@ public class HBaseTester {
     // the hbase return into the form you find most palatable.
     Get g = new Get(Bytes.toBytes("myLittleRowKEY"));
     Result r = table.get(g);
-    byte [] value = r.getValue(Bytes.toBytes("access_ts"),
+    byte [] value = r.getValue(Bytes.toBytes("access.ts"),
       Bytes.toBytes("someQualifier"));
     // If we convert the value bytes, we should get back 'Some Value', the
     // value we inserted at this location.
@@ -75,15 +76,18 @@ public class HBaseTester {
     // use a Scanner. This will give you cursor-like interface to the contents
     // of the table.  To set up a Scanner, do like you did above making a Put
     // and a Get, create a Scan.  Adorn it with column names, etc.
+    System.out.println("ACCESS.TS SCAN");    
     Scan s = new Scan();
-    s.addColumn(Bytes.toBytes("access_ts"), Bytes.toBytes("someQualifier"));
+    s.addColumn(Bytes.toBytes("access.ts"), Bytes.toBytes("someQualifier"));
     ResultScanner scanner = table.getScanner(s);
+    int i = 0;
     try {
+        i++;
       // Scanners return Result instances.
       // Now, for the actual iteration. One way is to use a while loop like so:
       for (Result rr = scanner.next(); rr != null; rr = scanner.next()) {
         // print out the row we found and the columns we were looking for
-        System.out.println("Found row: " + rr);
+        System.out.println("[" + i + "] found rowkey: " + rr);
       }
 
       // The other approach is to use a foreach loop. Scanners are iterable!
@@ -98,14 +102,21 @@ public class HBaseTester {
   }
 
     private static void initTable(Configuration config, String name) throws MasterNotRunningException, ZooKeeperConnectionException, IOException {
+            
         HBaseAdmin hbase = new HBaseAdmin( config );
         HTableDescriptor desc = new HTableDescriptor( name ); 
-        HColumnDescriptor meta = new HColumnDescriptor("edit_ts".getBytes());
-        HColumnDescriptor prefix = new HColumnDescriptor("access_ts".getBytes());
+        HColumnDescriptor meta = new HColumnDescriptor("edit.ts".getBytes());
+        HColumnDescriptor prefix = new HColumnDescriptor("access.ts".getBytes());
         desc.addFamily(meta);
         desc.addFamily(prefix);
-        hbase.createTable(desc);
-
+        
+        if ( hbase.tableExists(name) ) { 
+            System.out.println( ">>> table: " + name + " already exists.");
+        }
+        else { 
+            hbase.createTable(desc);
+        }
+        
     }
 }
 
