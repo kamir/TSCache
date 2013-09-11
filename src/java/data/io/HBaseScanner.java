@@ -21,7 +21,7 @@ public class HBaseScanner {
         config.set("hbase.zookeeper.quorum", "192.168.3.171");  // Here we are running zookeeper locally
         config.set("hbase.zookeeper.property.clientPort", "22181");  // Here we are running zookeeper locally
 
-        String tabName = "wikinodes.2";
+        String tabName = "wikinodes.mk";
 
         /**
          * 
@@ -93,9 +93,9 @@ public class HBaseScanner {
 
     private static void resetTable(Configuration config, String name) throws MasterNotRunningException, ZooKeeperConnectionException, IOException {
 
-//        HBaseAdmin hbase = new HBaseAdmin(config);
-//        hbase.disableTable(name);
-//        hbase.deleteTable(name);
+        HBaseAdmin hbase = new HBaseAdmin(config);
+        hbase.disableTable(name);
+        hbase.deleteTable(name);
 
     }
 
