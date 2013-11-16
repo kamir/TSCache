@@ -10,6 +10,8 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 /**
  *
+ * Simple API Tester.
+ * 
  * @author kamir
  */
 public class HBaseTester {

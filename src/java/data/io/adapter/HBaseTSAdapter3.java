@@ -5,7 +5,7 @@
  */
 package data.io.adapter;
 
-import data.io.TSTabAdmin;
+import admin.TSTabAdmin;
 import data.io.adapter.HBaseAdapter;
 import java.io.*;
 import java.util.logging.Level;
@@ -25,6 +25,7 @@ import org.apache.hadoop.hbase.util.Bytes;
  */
 public class HBaseTSAdapter3 {
 
+ 
     
 
     private HBaseTSAdapter3() {

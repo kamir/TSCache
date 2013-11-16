@@ -4,7 +4,7 @@ package data.io.wikipedia;
  *  Create some Time-Series and store them in an HBase table.
  */
 
-import data.io.adapter.HBaseTSAdapter;
+import data.io.adapter.HBaseTSAdapter3;
 import data.ts.TSDataWrapper;
 import java.io.IOException;
 
@@ -20,12 +20,12 @@ public class SimpleTSTool {
         /**
          * Where is the Zookeeper ?
          */
-        String defaultIP = "127.0.0.1";
+        // String defaultIP = "192.168.3.171";
         
-        if ( args != null && args.length > 0 ) 
-            defaultIP = args[0];
+//        if ( args != null && args.length > 0 ) 
+//            defaultIP = args[0];
         
-        System.out.println( "> zookeeper for simple TS-Test is: " + defaultIP );
+//        System.out.println( "> zookeeper for simple TS-Test is: " + defaultIP );
         
         boolean doCreate = false;
 
@@ -39,12 +39,14 @@ public class SimpleTSTool {
         /**
          * Init the Singleton-Adapter instance ...
          */
-        HBaseTSAdapter.init( defaultIP );
+        HBaseTSAdapter3.init();
 
         if ( doCreate ) {
             for( int i = 0; i < nrOfRows ; i++ ) {
-                TSDataWrapper mapper = new TSDataWrapper( 24*299 );
-                HBaseTSAdapter.putAccessTS( "wikinodes.2", mapper , ""+i );
+                
+//                TSDataWrapper mapper = new TSDataWrapper( 24*299 );
+//                
+//                HBaseTSAdapter3.putEditTS( "wikinodes.2", mapper , ""+i );
             }
             System.out.println( "+ Creation is done!" );
         }
@@ -53,9 +55,11 @@ public class SimpleTSTool {
             System.out.println( "+ Start loading ... ");
             // load all rows from HBase ...
             for( int i = 0; i < nrOfRows ; i++ ) {
-                Object o = HBaseTSAdapter.getAccessTS( "wikinodes.2", ""+i );
-                TSDataWrapper mapper = (TSDataWrapper)o;
+                
+                //Object o = HBaseTSAdapter3.getAccessTS( "wikinodes.2", ""+i );
+                //TSDataWrapper mapper = (TSDataWrapper)o;
                 // System.out.println( mapper.data.length );
+            
             }
         }
         

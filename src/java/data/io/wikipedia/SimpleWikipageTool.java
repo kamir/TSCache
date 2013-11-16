@@ -19,18 +19,15 @@ public class SimpleWikipageTool {
     
     public static void main( String[] args ) throws IOException, Exception {
         
-        String defaultIP = "127.0.0.1";
+        String myIP = null;  // use default IP
         
-        if ( args != null ) 
-            defaultIP = args[0];
-        
-        System.out.println( defaultIP );
+        System.out.println( myIP );
         
         boolean doCreate = true;
         boolean doLoad = true;
         int nrOfRows = 25;
         
-        HBaseWikiAdapter.init( defaultIP );
+        HBaseWikiAdapter.init( myIP );
 
         if ( doCreate ) {
             for( int i = 0; i < nrOfRows ; i++ ) {

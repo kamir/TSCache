@@ -14,6 +14,7 @@
 package data.io.adapter;
 
 
+import static data.io.adapter.HBaseTSAdapter3.config;
 import java.io.IOException;
 
 import org.apache.hadoop.conf.Configuration;
@@ -32,7 +33,7 @@ import org.apache.hadoop.hbase.util.Bytes;
  */
 public class HBaseAdapter {
     
-    String zookeeperIP = "192.168.3.170";
+    String zookeeperIP = "192.168.3.171";
     
     Configuration config = null;
     
@@ -40,6 +41,7 @@ public class HBaseAdapter {
         zookeeperIP = theZookeeperIP;
         config = HBaseConfiguration.create();
         config.set("hbase.zookeeper.quorum", zookeeperIP );  
+        config.set("hbase.zookeeper.property.clientPort", "22181");  // Here we are running zookeeper locally
     }
     
     /**

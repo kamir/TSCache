@@ -1,6 +1,5 @@
 /**
- *
- * Our simplest representation of Time Series is
+ * Our simplest representation of a Time Series is
  * a binary data array and a properties object.
  * 
  **/
@@ -16,14 +15,14 @@ import java.util.Properties;
 public class TSDataWrapper implements Serializable {
     
     public double[] data;
+    public Properties props = new Properties();
+    
     public TSDataWrapper( int nrOfvalues ) {
         data = new double[nrOfvalues];
         for( int i = 0; i < nrOfvalues; i++ ) {
             data[i] = 0.0;
         }
     }
-    
-    public Properties props = new Properties();
     
     public static TSDataWrapper initRandomSeries( int z ) {
         TSDataWrapper mapper = new TSDataWrapper( z );

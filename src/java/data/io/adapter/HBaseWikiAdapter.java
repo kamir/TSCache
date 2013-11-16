@@ -23,7 +23,8 @@ public class HBaseWikiAdapter {
     
     private HBaseWikiAdapter() {};
    
-    static String defaultZookeeperIP = "172.16.14.129";
+  //  static String defaultZookeeperIP = "172.16.14.129";
+    static String defaultZookeeperIP = "192.168.3.171";
     
     static HBaseAdapter hba = null;
     
@@ -33,7 +34,7 @@ public class HBaseWikiAdapter {
      * @param zk 
      */
     public static void init( String zk ) {
-        defaultZookeeperIP = zk;
+        if ( zk != null ) defaultZookeeperIP = zk;
         hba = new HBaseAdapter( defaultZookeeperIP );
     }
     
