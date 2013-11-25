@@ -17,10 +17,10 @@ public class SimpleTSTool {
     
     public static void main( String[] args ) throws IOException, Exception {
         
-        String defaultIP = "127.0.0.1";
+        String defaultIP = "192.168.3.170";
         
-        if ( args != null ) 
-            defaultIP = args[0];
+//        if ( args != null ) 
+//            defaultIP = args[0];
         
         System.out.println( defaultIP );
         
