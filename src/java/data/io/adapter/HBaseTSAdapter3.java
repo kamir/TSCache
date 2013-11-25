@@ -5,6 +5,7 @@
  */
 package data.io.adapter;
 
+import admin.TSTabAdmin;
 import data.io.adapter.HBaseAdapter;
 import java.io.*;
 import java.util.logging.Level;
@@ -24,6 +25,7 @@ import org.apache.hadoop.hbase.util.Bytes;
  */
 public class HBaseTSAdapter3 {
 
+ 
     
 
     private HBaseTSAdapter3() {
@@ -45,7 +47,7 @@ public class HBaseTSAdapter3 {
     static Configuration config = null;
     static String defaultZookeeperIP = "192.168.3.171";
     static HBaseTSAdapter3 hba = null;
-    static String tabName = "wikipedia_editevent_ts2";
+    static String tabName = TSTabAdmin.tsTabName;
     static HTable table = null;
 
     /**
@@ -57,7 +59,7 @@ public class HBaseTSAdapter3 {
         if (hba == null) {
             hba = new HBaseTSAdapter3();
             
-                    // initTable( config , tabName );
+            // initTable( config , tabName );
         try {
             // This instantiates an HTable object that connects you to
             // the "myLittleHBaseTable" table.
@@ -115,7 +117,7 @@ public class HBaseTSAdapter3 {
         // schema.  The qualifier can be anything.  All must be specified as byte
         // arrays as hbase is all about byte arrays.  Lets pretend the table
         // 'wikinodes' was created with a family 'accessts'.
-        p.add(Bytes.toBytes("edit_ts"), Bytes.toBytes("raw"), v);
+        p.add(Bytes.toBytes( TSTabAdmin.colFamNameE), Bytes.toBytes("raw"), v);
 
         // Once you've adorned your Put instance with all the updates you want to
         // make, to commit it do the following (The HTable#put method takes the
@@ -142,7 +144,7 @@ public class HBaseTSAdapter3 {
         // the hbase return into the form you find most palatable.
         Get g = new Get(key);
         Result r = hba.table.get(g);
-        byte[] value = r.getValue(Bytes.toBytes("edit_ts"), Bytes.toBytes("raw"));
+        byte[] value = r.getValue(Bytes.toBytes( TSTabAdmin.colFamNameE), Bytes.toBytes("raw"));
 
         if ( value == null) value = "NULL".getBytes();
         return value;
@@ -164,7 +166,7 @@ public class HBaseTSAdapter3 {
         
         Result r = hba.table.get(g);
         
-        byte[] value = r.getValue(Bytes.toBytes("edit_ts"), Bytes.toBytes("raw"));
+        byte[] value = r.getValue(Bytes.toBytes( TSTabAdmin.colFamNameE ), Bytes.toBytes("raw"));
 
         if ( value == null) value = "NULL".getBytes();
         return ret;
