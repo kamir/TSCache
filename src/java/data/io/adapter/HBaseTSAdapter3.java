@@ -46,7 +46,7 @@ public class HBaseTSAdapter3 {
     
     static Configuration config = null;
     static String defaultZookeeperIP = "192.168.3.171";
-    static HBaseTSAdapter3 hba = null;
+    static HBaseTSAdapter3 _hba = null;
     static String tabName = TSTabAdmin.tsTabName;
     static HTable table = null;
 
