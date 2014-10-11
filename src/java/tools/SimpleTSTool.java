@@ -2,7 +2,7 @@ package tools;
 
 
 import data.io.adapter.HBaseTSAdapter;
-import data.ts.TSDataMapper;
+
 import java.io.IOException;
 
 /*
@@ -32,8 +32,8 @@ public class SimpleTSTool {
 
         if ( doCreate ) {
             for( int i = 0; i < nrOfRows ; i++ ) {
-                TSDataMapper mapper = new TSDataMapper( 24*299 );
-                HBaseTSAdapter.putAccessTS( "wikinodes", mapper , ""+i );
+                //TSDataMapper mapper = new TSDataMapper( 24*299 );
+                //HBaseTSAdapter.putAccessTS( "wikinodes", mapper , ""+i );
             }
 
             System.out.println( "Done ..." );
@@ -44,7 +44,7 @@ public class SimpleTSTool {
             // load all data from DB ...
             for( int i = 0; i < nrOfRows ; i++ ) {
                 Object o = HBaseTSAdapter.getAccessTS( "wikinodes", ""+i );
-                TSDataMapper mapper = (TSDataMapper)o;
+                //TSDataMapper mapper = (TSDataMapper)o;
                 // System.out.println( mapper.data.length );
             }
         }

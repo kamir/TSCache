@@ -35,8 +35,13 @@ public class TSTabAdmin {
         // be found on the CLASSPATH
         Configuration config = HBaseConfiguration.create();
 
-        config.set("hbase.zookeeper.quorum", "192.168.3.171");  // Here we are running zookeeper locally
-        config.set("hbase.zookeeper.property.clientPort", "22181");  // Here we are running zookeeper locally
+        
+    
+        
+        config.set("hbase.zookeeper.quorum", "172.20.63.21");  // Here we are running zookeeper locally
+        
+        //config.set("hbase.zookeeper.quorum", "192.168.3.171");  // Here we are running zookeeper locally
+        config.set("hbase.zookeeper.property.clientPort", "2181");  // Here we are running zookeeper locally
 
         String tabName = tsTabName;
 
