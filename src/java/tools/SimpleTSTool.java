@@ -25,7 +25,7 @@ public class SimpleTSTool {
         System.out.println( defaultIP );
         
         boolean doCreate = false;
-        boolean doLoad = true;
+        boolean doLoad = false;
         int nrOfRows = 25;
         
         HBaseTSAdapter.init( defaultIP );
