@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hadoop.ts.cache;
+package admin;
 
 import data.io.HBaseTester;
 import data.io.adapter.HBaseTSAdapter3;
@@ -14,10 +14,10 @@ import java.util.logging.Logger;
  *
  * @author kamir
  */
-public class Tester {
+public class TSCachePing {
 
     /**
-     * Simple Chache Tester,
+     * Simple Chache TSCachePing. Is the cache still running fine?
      * 
      * @param args the command line arguments
      */
@@ -37,7 +37,7 @@ public class Tester {
             System.out.println( k + " " + r );
         } 
         catch (Exception ex) {
-            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TSCachePing.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
 }

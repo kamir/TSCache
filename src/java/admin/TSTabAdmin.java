@@ -9,14 +9,18 @@ import org.apache.hadoop.hbase.util.Bytes;
 /**
  * @author kamir
  * 
+ * This tool is used to initialize see: 
+ *     see: init() 
+ * and clean up
+ *     see: reset() 
+ * time series cache tables in the HBase server. 
  * 
- * Tool zum erstellen ( init() ) und löschen ( reset() ) der 
- * Tabellen für 
+ * Tabel names:
  * 
- *      Access-Rows
- *      Edit-Rows
+ *     - Access-Rows
+ *     - Edit-Rows
  * 
- * Cache in HBase.
+ * This is part of the time series cache in HBase.
  * 
  */
 public class TSTabAdmin {
@@ -25,23 +29,25 @@ public class TSTabAdmin {
     public static final String colFamNameE = "edit.ts"; 
     public static final String colFamNameA = "access.ts"; 
 
-    
     public static void main(String[] args) throws IOException {
-        
         
         // You need a configuration object to tell the client where to connect.
         // When you create a HBaseConfiguration, it reads in whatever you've set
         // into your hbase-site.xml and in hbase-default.xml, as long as these can
         // be found on the CLASSPATH
         Configuration config = HBaseConfiguration.create();
+        config.set("hbase.zookeeper.property.clientPort", "2181");  
 
+        /**
+         * Where is the Zookeeper server?
+         * 
+         */
+        // config.set("hbase.zookeeper.quorum", "172.20.63.21");  
         
-    
-        
-        config.set("hbase.zookeeper.quorum", "172.20.63.21");  // Here we are running zookeeper locally
-        
-        //config.set("hbase.zookeeper.quorum", "192.168.3.171");  // Here we are running zookeeper locally
-        config.set("hbase.zookeeper.property.clientPort", "2181");  // Here we are running zookeeper locally
+        /**
+         * Mirko's home cluster ...
+         */
+        config.set("hbase.zookeeper.quorum", "192.168.3.171");  
 
         String tabName = tsTabName;
 
