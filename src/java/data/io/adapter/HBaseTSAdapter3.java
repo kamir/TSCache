@@ -149,6 +149,37 @@ public class HBaseTSAdapter3 {
         if ( value == null) value = "NULL".getBytes();
         return value;
     }
+    
+    
+    //    /** 
+//     * 
+//     * the object can be a Messreihe.
+//     * 
+//     * @param data
+//     * @param pageID 
+//     */
+//    public static void putEditTS( Object data, String pageID ) {
+//    
+//    }
+    public static byte[] getEditTSKeyOnly(byte[] key) throws IOException, Exception {
+
+        // Now, to retrieve the data we just wrote. The values that come back are
+        // Result instances. Generally, a Result is an object that will package up
+        // the hbase return into the form you find most palatable.
+        Get g = new Get(key);
+        
+        KeyOnlyFilter filter = new KeyOnlyFilter();
+        g.setFilter(filter);
+        
+        Result r = hba.table.get(g);
+        // byte[] value = r.getValue(Bytes.toBytes( TSTabAdmin.colFamNameE), Bytes.toBytes("raw"));
+        int size = r.size();
+
+        return Bytes.toBytes(size);
+    }
+    
+    
+    
 //    public static Object getEditsTS( String pageID ) {
 //        Object o = null;
 //        return o;
