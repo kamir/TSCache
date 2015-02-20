@@ -3,12 +3,13 @@
  *  systems, to implement a direct link to an HBase cluster.
  * 
  *  Just define the connection to the Zookeeper server and start putting or 
- *  getting data from HBase. As all data is just binary, we have use some 
- *  higher abstraction layer on top of the adapter to map data structures 
- *  the right way.
+ *  getting data from HBase. As all data is just binary (content of each cell
+ *  is just a byte-Array - we have to use some higher abstraction layers on top 
+ *  of the adapter to map data structures the right way.
  * 
- *  So we can easily handle networks as lists or arrays, dependent on the
- *  algorithm which will be applied to the data.
+ *  So we can easily handle networks as adjacency-lists or adjacency-matrices,
+ *  distributed or in on single cell, dependent on the algorithm which will be 
+ *  applied to the data set.
  * 
  */
 package data.io.adapter;
@@ -34,16 +35,31 @@ import org.apache.hadoop.hbase.util.Bytes;
 public class HBaseAdapter {
     
     String zookeeperIP = "192.168.3.171";
+    String zookeeperPort = "22181";
     
-    Configuration config = null;
+    public Configuration config = null;
     
+    public static HBaseAdapter getLocalHBaseAdapter( String port ) {
+        HBaseAdapter adapter = new HBaseAdapter( "localhost", port );
+        return adapter;
+    }
+
     public HBaseAdapter( String theZookeeperIP ) {
         zookeeperIP = theZookeeperIP;
         config = HBaseConfiguration.create();
         config.set("hbase.zookeeper.quorum", zookeeperIP );  
-        config.set("hbase.zookeeper.property.clientPort", "22181");  // Here we are running zookeeper locally
+        config.set("hbase.zookeeper.property.clientPort", zookeeperPort);  // Here we are running zookeeper locally
     }
-    
+
+    public HBaseAdapter( String theZookeeperIP, String port ) {
+        zookeeperIP = theZookeeperIP;
+        zookeeperPort = port;
+        
+        config = HBaseConfiguration.create();
+        config.set("hbase.zookeeper.quorum", zookeeperIP );  
+        config.set("hbase.zookeeper.property.clientPort", zookeeperPort);  // Here we are running zookeeper locally
+    }
+
     /**
      * 
      * @param tableName
