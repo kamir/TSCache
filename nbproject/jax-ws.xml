@@ -45,7 +45,7 @@ made subject to such option by the copyright holder.
 -->
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="HBaseCache">
+    <service name="TSCache.v3">
       <implementation-class>hadoop.ts.cache.HBaseCache</implementation-class>
     </service>
   </services>

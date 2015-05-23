@@ -19,7 +19,7 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsgen-HBaseCache" depends="wsgen-init">
+    <target name="wsgen-TSCache.v3" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
             <fileset dir="${webinf.dir}" includes="wsit-hadoop.ts.cache.HBaseCache.xml"/>
         </copy>
