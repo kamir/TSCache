@@ -1,4 +1,4 @@
-... SNIPPET ...
+... SNIPPET ... (https://github.com/alexholmes/avro-maven)
 
 <plugin>
   <groupId>org.apache.avro</groupId>
