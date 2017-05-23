@@ -2,10 +2,12 @@ TSCache
 =======
 
 TSCache is a temporary time series database. 
+TSCache supports time series analysis on measured data and in simulation environments.
 
-Temporary means here, that data is hold in it as long as we want to work with it on a regular base. 
+Temporary means here, that time series data is hold in the TSCache system as long as someone needs it for ad-hoc analysis. 
+We use multiple storage levels to provide various access-patterns.
 
-It is not the goal, to build a long-term storage solution because HDFS and HBase already exist. The two systems are used as persistence layer. The long term aspects of time series persistence are out of scope. 
+TSCache is not a long-term storage solution. HDFS and HBase are used to persist and manage time series buckets over the full life cycle of a product or a project whith undefined end. The two Hadoop based systems are the ideal long term persistence layer because processing capabilties and in-place processing are available this way.
 
 We simply start with a tool which allows us to create time series buckets. A time series bucket can be a sequence file or evene special kind of a Parquet file (using AVRO serialization). The bucket gets filled up with collected data, with simulated time series or finally, with data loaded from operational DBs. 
 
