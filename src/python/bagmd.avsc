@@ -1,0 +1,20 @@
+{
+   "type" : "record",
+   "namespace" : "ros.bag.extraction.track.0001",
+   "name" : "BagMD",
+   "fields" : [
+      { "name" : "path" , "type" : "string" },
+      { "name" : "version" , "type" : "string" },
+      { "name" : "duration" , "type" : "string" },
+      { "name" : "start" , "type" : "double" },
+      { "name" : "end" , "type" : "double" },
+      { "name" : "size" , "type" : "int" },
+      { "name" : "messages" , "type" : "int" },
+      { "name" : "compression" , "type" : "string" },
+      { "name" : "vehicle" , "type" : "string" },
+      { "name" : "error" , "type" : "string" },
+      { "name" : "md5" , "type" : "string" }
+      ]
+}
+
+
