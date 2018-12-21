@@ -13,24 +13,11 @@
       { "name" : "compression" , "type" : "string" },
       { "name" : "vehicle" , "type" : "string" },
       { "name" : "error" , "type" : "string" },
-      
-{ "name" : "types",
-"type" : [ {
-  "type" : "array",
-  "items" : {
-  "type" : "string" } }]
-      },
-      
-{ "name" : "topics",
-"type" : [ {
-  "type" : "array",
-  "items" : {
-  "type" : "string" } }]
-      },
-      
-            { "name" : "md5" , "type" : "string" }
+      { "name" : "types", "type" : "array", "items" : "string" }, 
+	  { "name" : "topics", "type" : "array", "items" : "string" },
+      { "name" : "md5" , "type" : "string" }
       ]
 }
 
 
-
+ 
